@@ -1,0 +1,13 @@
+Here is my reflection for my minimax project:
+
+1) What are some time or space efficiency limitations of your current algorithm? 
+For example, is there a certain number of initial pieces for which your algorithm will not be able to finish 
+executing in a reasonable amount of time?
+
+2) Will your bot win EVERY possible game of SimpleNim? Explain why.
+
+3) Nim is known as a misere game, meaning that the goal is to avoid taking the last piece. Say we changed the rules
+so that the player who takes the last piece wins instead of loses. How would you change your code to give the best move
+for the AntiNim game? Be as specific as possible, citing file names and line numbers.
+
+4) Give one example of a non-Nim game you expect your algorithm would NOT work well on. Explain why.
