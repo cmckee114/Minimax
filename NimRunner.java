@@ -17,9 +17,13 @@ public class NimRunner{
     public static int getYMove(int pieces){
        return bestMove(pieces, false);
     }
+    public static int getUserMove(){
+        //use scanner 
+    }
 
     public static int bestMove(int pieces, boolean myTurn){//returning the number of pieces we wanna take (for complicagted nim probs returns an arraylist )
-        for (int piecesTaken=1; piecesTaken<3; piecesTaken++){
+        for (int piecesTaken=1; piecesTaken<3; piecesTaken++){ //specific for simple nim because we need more thna just integer being passed in we also need pile number (array index) and not limited to taking three
+            //for move: moves 
             if (piecesTaken>=pieces){
                 if (myTurn){
                     if(minimax(pieces, myTurn)>0){
@@ -47,6 +51,7 @@ public class NimRunner{
     }
 
     public static int minimax(int state, boolean myTurn){ //state=numPieces 
+       //checking if each pile is zero for nim
         if (state==0){//base case no more pieces 
             if (myTurn==false){
                 return -1;//i lost
