@@ -3,10 +3,12 @@ public class NimRunner{
     public static void main (String[] args){
        // display(7, true);
     }
-    public static void runGame(int numChips){
+    public static void runGame(int numPieces){
         while (numPieces>0){
-            getXMove();
-            getYMove();
+            int chipsTakenByX = getXMove(numPieces);
+            numPieces= numPieces-chipsTakenByX;
+            int chipsTakenByY = getYMove(numPieces);
+            numPieces = numPieces-chipsTakenByY;
         }
     }
     public static int getXMove(int pieces){
@@ -20,12 +22,12 @@ public class NimRunner{
         for (int piecesTaken=1; piecesTaken<3; piecesTaken++){
             if (piecesTaken>=pieces){
                 if (myTurn){
-                    if(minimax(state, myTurn)>0){
+                    if(minimax(pieces, myTurn)>0){
                         return piecesTaken;
                     }
                 }
                 else{
-                    if (minimax(state, myTurn)<0){
+                    if (minimax(pieces, myTurn)<0){
                         return piecesTaken;
                     }
                 }
