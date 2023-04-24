@@ -3,19 +3,18 @@ public class NimRunner{
     public static void main (String[] args){
        // display(7, true);
     }
-    // public static void runGame(int numChips){
-    //     while (numPieces>0){
-    //         getXMove();
-    //         getYMove();
-    //     }
-    // }
-
-    // public static int getXMove(int pieces, boolean turn){
-    //     return 1;
-    // }
-    // public static int getYMove(int pieces, boolean turn){
-    //     return -1;
-    // }
+    public static void runGame(int numChips){
+        while (numPieces>0){
+            getXMove();
+            getYMove();
+        }
+    }
+    public static int getXMove(int pieces){
+       return bestMove(pieces, true);
+    }
+    public static int getYMove(int pieces){
+       return bestMove(pieces, false);
+    }
 
     public static int bestMove(int pieces, boolean myTurn){//returning the number of pieces we wanna take (for complicagted nim probs returns an arraylist )
         for (int piecesTaken=1; piecesTaken<3; piecesTaken++){
