@@ -9,7 +9,9 @@ public class Tests{
         System.out.println(NimRunner.minimax(4,true)==1);//should return 1 true 
 
         //Testing bestMove function 
-        
+        System.out.println("Testing my best move method");
+        System.out.println(NimRunner.bestMove(2, true));//should return 1
+        System.out.println(NimRunner.bestMove(3, true));//should return 2
     }
 
 }
