@@ -4,10 +4,24 @@ Here is my reflection for my minimax project:
 For example, is there a certain number of initial pieces for which your algorithm will not be able to finish 
 executing in a reasonable amount of time?
 
+
 2) Will your bot win EVERY possible game of SimpleNim? Explain why.
+    My bot will not win every possible game of SimpleNim because as we discussed in class, we learned and proved by drawing various game 
+trees that the player who goes first will win SimpleNim and if we cannot guarantee that the bot gets to play first, we cannot guarantee a win. 
+Also, there are examples of SimpleNim where the bot simply will not win if the other player makes the best move (even if the bot goes first)
+An example of this is if our bot got to go first and we started with 5 chips on the table- no matter if the bot takes 1,2, or 3 there is no 
+winning move because we know that the other player can take 3 if our bot took one, 2 if our bot took 2, and 1 if our bot took 3 and our bot 
+will lose. FINISH
 
 3) Nim is known as a misere game, meaning that the goal is to avoid taking the last piece. Say we changed the rules
 so that the player who takes the last piece wins instead of loses. How would you change your code to give the best move
 for the AntiNim game? Be as specific as possible, citing file names and line numbers.
+    If we changed the rules so that the player who takes the last piece won, my code would almost flip- my minimax function would return 1 
+when ..... FINISH
 
 4) Give one example of a non-Nim game you expect your algorithm would NOT work well on. Explain why.
+    I expect that my algorithm would not work well on a game of tic tac toe because although there are strategies you can employ to optimize 
+your situation in a given state, it is not a zero-sum game so ties can occur. Also, there should be no scenario in which a rational player
+will lose tic tac toe if they have basic experience with the game (and we asssume that players can make rational best possible decisions for
+themselves) The two player and alternatation moves aspects of this game suggests that it could work in our algorithm but ultimately with so
+many possible outcomes being a tie it is not a good game to use my algorithm on. CONTINUE EXPLANATION
