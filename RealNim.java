@@ -3,13 +3,25 @@ public class RealNim{
     public static void main (String[] args){
        // display(7, true);
     }
-    public static void runGame(int numPieces){
-        while (numPieces>0){
-            int chipsTakenByX = getXMove(numPieces);
-            numPieces= numPieces-chipsTakenByX;
-            int chipsTakenByY = getYMove(numPieces);
-            numPieces = numPieces-chipsTakenByY;
+    public static void runGame(int pile1Size, int pile2Size, int pile3Size){ //accepting pile sizes and will make this into a state 
+    //     set up an empty arraylist of arraylists of ints (moves)
+    ArrayList<ArrayList<Integer>> moves = new ArrayList<ArrayList<Integer>>();
+    ArrayList<Integer> state = new ArrayList<Integer>();
+    state.add(pile1Size);
+    state.add(pile2Size);
+    state.add(pile3Size);//how do i adjjust for less than three piles?
+
+    //     for loop through state (which represents each pile) state is current number of piles and chips in each pile (ex. 3,5,7 or 1,2,3)
+    for (pile:state){
+        for (int piecesToTake = 1; piecesToTake<=3;piecesToTake++){
+            if (piecesToTake<pile){
+                ArrayList<Integer> oneMove = new ArrayList<Integer>();
+            }
+            
         }
+    }
+    //     for loop or while loop through number f possible pieces you can take from this particular pile (specified index) outer loop tells pile and inner loop tells chips 4)make a new arraylist of integers to represent 1 move possibility (should have same number of indexes as state) 5)at the index you are at in state (pile index) : add the # of pieces
+    //     add the one move to moves (add small arraylist to arraylist of arraylists of ints) this is getPossibleMoves()
     }
     public static int getXMove(int pieces){
        return bestMove(pieces, true);
@@ -85,3 +97,30 @@ public class RealNim{
         }
     }
 }
+
+
+// ArrayList<Integer> states = new ArrayList<>();
+//         states.add(1);
+//         states.add(1);
+
+//         int totalObjects = 0;
+//         for(int i=0; i<states.size(); i++){
+//             totalObjects = totalObjects +states.get(i);
+//         }
+
+//         int state=2;
+//         while(state>=1){
+//             if(isXTurn){
+//                 state= getXMove(state);
+//                 System.out.println("New state:" + state);
+//             }
+//             else{
+//                 state = getYMove(state);
+//                 System.out.println("During y move, state after y moves:" + state);
+//             }
+//             isXTurn = !isXTurn;
+//         }
+//         if (state==0 && isXTurn){
+//             return true;
+//         }
+//         return false;
