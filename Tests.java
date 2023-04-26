@@ -12,6 +12,10 @@ public class Tests{
         System.out.println("Testing my best move method");
         System.out.println(NimRunner.bestMove(2, true));//should return 1
         System.out.println(NimRunner.bestMove(3, true));//should return 2
+
+        //Testing runGame function
+        System.out.println("Testing my runGame method");
+        System.out.println(NimRunner.runGame(7));
     }
 
 }
