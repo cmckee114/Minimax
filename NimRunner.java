@@ -1,15 +1,25 @@
 public class NimRunner{
-    public static int pieces;
     public static void main (String[] args){
        // display(7, true);
     }
-    public static void runGame(int numPieces){
+    public static boolean runGame(int numPieces){ //adjust to make it so that either x or  can go first
         while (numPieces>0){
+            System.out.println("There are " + numPieces + " pieces");
             int chipsTakenByX = getXMove(numPieces);
+            System.out.println("X takes " + chipsTakenByX + " pieces");
             numPieces= numPieces-chipsTakenByX;
-            int chipsTakenByY = getYMove(numPieces);
-            numPieces = numPieces-chipsTakenByY;
+            if (numPieces==0){
+                System.out.println("Player X lost");
+                return false;
+            }
+            else{
+                int chipsTakenByY = getYMove(numPieces);
+                System.out.println("Y takes " + chipsTakenByY + " pieces");
+                numPieces = numPieces-chipsTakenByY;
+            }
         }
+        System.out.println("Player X won");
+        return true;
     }
     public static int getXMove(int pieces){
        return bestMove(pieces, true);
@@ -22,7 +32,7 @@ public class NimRunner{
     //}
 
     public static int bestMove(int pieces, boolean myTurn){//returning the number of pieces we wanna take (for complicagted nim probs returns an arraylist )
-        for (int piecesTaken=1; piecesTaken<3; piecesTaken++){ //specific for simple nim because we need more thna just integer being passed in we also need pile number (array index) and not limited to taking three
+        for (int piecesTaken=1; piecesTaken<=3; piecesTaken++){ //specific for simple nim because we need more thna just integer being passed in we also need pile number (array index) and not limited to taking three
             //for move: moves 
                 if (pieces-piecesTaken>=0 && myTurn){
                     if(minimax(pieces-piecesTaken, !myTurn)==1){
@@ -30,7 +40,7 @@ public class NimRunner{
                     }
                 }
                 else if (pieces-piecesTaken>=0 && !myTurn){
-                    if (minimax(pieces-piecesTaken, myTurn)==1){
+                    if (minimax(pieces-piecesTaken, !myTurn)==-1){
                         return piecesTaken;
                     }
                 }
@@ -38,7 +48,7 @@ public class NimRunner{
         return 1;// if you get ot this point there is no winning strategy (you will lose) and so we're just deciding to trake 3
     }
 
-    public static void display(int pieces, boolean turn){ //shows a line of asterisks for the number of chips on the table 
+    public static void display(int pieces){ //shows a line of asterisks for the number of chips on the table 
         for (int i=0; i<pieces; i++){
             System.out.print("*");
         }
@@ -69,7 +79,6 @@ public class NimRunner{
                         }
                     }
                 }
-
             }
             if (myTurn){
                 return -1;
