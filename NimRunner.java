@@ -17,29 +17,24 @@ public class NimRunner{
     public static int getYMove(int pieces){
        return bestMove(pieces, false);
     }
-    public static int getUserMove(){
+    //public static int getUserMove(){
         //use scanner 
-    }
+    //}
 
     public static int bestMove(int pieces, boolean myTurn){//returning the number of pieces we wanna take (for complicagted nim probs returns an arraylist )
         for (int piecesTaken=1; piecesTaken<3; piecesTaken++){ //specific for simple nim because we need more thna just integer being passed in we also need pile number (array index) and not limited to taking three
             //for move: moves 
-            if (piecesTaken>=pieces){
-                if (myTurn){
-                    if(minimax(pieces, myTurn)>0){
+                if (pieces-piecesTaken>=0 && myTurn){
+                    if(minimax(pieces-piecesTaken, !myTurn)==1){
                         return piecesTaken;
                     }
                 }
-                else{
-                    if (minimax(pieces, myTurn)<0){
+                else if (pieces-piecesTaken>=0 && !myTurn){
+                    if (minimax(pieces-piecesTaken, myTurn)==1){
                         return piecesTaken;
                     }
                 }
             }
-            else{
-                return 0;
-            }
-        }
         return 1;// if you get ot this point there is no winning strategy (you will lose) and so we're just deciding to trake 3
     }
 
