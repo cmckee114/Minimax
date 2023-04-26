@@ -10,12 +10,23 @@ public class Tests{
 
         //Testing bestMove function 
         System.out.println("Testing my best move method");
-        System.out.println(NimRunner.bestMove(2, true));//should return 1
-        System.out.println(NimRunner.bestMove(3, true));//should return 2
+        System.out.println(NimRunner.bestMove(2, true)==1);
+        System.out.println(NimRunner.bestMove(3, true)==2);
+        System.out.println(NimRunner.bestMove(2, false)==1);
+        System.out.println(NimRunner.bestMove(3,false)==2); 
+        System.out.println(NimRunner.bestMove(4,true)==3);         
+        System.out.println(NimRunner.bestMove(6, true)==1);
 
         //Testing runGame function
         System.out.println("Testing my runGame method");
-        System.out.println(NimRunner.runGame(7));
+        //System.out.println(NimRunner.runGame(3)==true); 
+        System.out.println(NimRunner.runGame(6)==true);
+        
+        System.out.println("Testing minimax should return true");
+        System.out.println(NimRunner.minimax(1, false)==1);
+
+        //ok so there's a problem with bestMove 
+
     }
 
 }
