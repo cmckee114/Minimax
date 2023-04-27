@@ -80,11 +80,12 @@ public class RealNim{
   }
 
     public static ArrayList<Integer> bestMove(ArrayList<Integer> piles,boolean myTurn) {
+        ArrayList<Integer> copyPiles = new ArrayList<Integer>(piles);
         for (int i = 0; i < piles.size(); i++) {
-            if (piles.get(i) == 0) { //if there are no piles (base case)
-                continue;
-            }
-            for (int j = 1; j <= piles.get(i); j++) { //num pieces remaining in pile 
+            // if (piles.get(i) == 0) { //if there are no chips
+            //     continue;//edge case
+            // }
+            for (int j = 1; j <= piles.get(i); j++) { //num pieces im taking 
                 ArrayList<Integer> state = new ArrayList<Integer>(piles);
                 state.set(i, piles.get(i) - j);//replacing current pile with value - piecesTaken
                 if (myTurn) {
@@ -125,9 +126,13 @@ public class RealNim{
         } 
         else {
             for (int p = 0; p < piles.size(); p++) { //iterating through pile
-                for (int n = 0; n <= piles.get(n) - 1; n++) { //iterating through number in each pile
-                    ArrayList<Integer> state = new ArrayList<Integer>(piles);
-                    state.set(p, n);
+                for (int n = 1; n <= piles.get(n); n++) { //iterating through number in each pile
+                    ArrayList<Integer> state = new ArrayList<Integer>();
+                    for (int oldPieces : piles){
+                        state.add(oldPieces);//copying over old pieces
+                    }
+                    System.out.println("hi");
+                    state.set(p, piles.get(p)-n);
                     if (myTurn) {
                         if (minimax(state, !myTurn) == 1) {
                             return 1;
