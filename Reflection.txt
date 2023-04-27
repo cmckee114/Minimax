@@ -3,27 +3,40 @@ Here is my reflection for my minimax project:
 1) What are some time or space efficiency limitations of your current algorithm? 
 For example, is there a certain number of initial pieces for which your algorithm will not be able to finish 
 executing in a reasonable amount of time?
-The larger the input the larger amount of branching and because we are iteratively calling minimax 
+- The larger the input the larger amount of branching and because we are iteratively calling minimax so there are efficiency limitations in 
+terms of the time it takes to compile very large calls of runGame. For example, if we werre to call runGame(1000000000000000000000000000) it 
+would take longer to compute whether or not a decision was a good decision because we must reach down branches all the way until we realize 
+the base case (which defines a good decision). In fact, my current simplenim will not calculate simplenim of such a large number and it takes a
+long time to even calculate what X's move should be with Depending on how you quantify a "reasonable amount of time" this changes the number
+of chips that we begin with. It even takes a while to calculate simpleNim.runGame(20). For my RealNim it takes a while to choose the computer's 
+best move for very large piles for the same reason- this is why I limited my program to randomly generate between 1-10 piles with a maximum of
+10 chips in each - this reduces the amount of time it takes to test my program.
 
 
 2) Will your bot win EVERY possible game of SimpleNim? Explain why.
-    My bot will not win every possible game of SimpleNim because as we discussed in class, we learned and proved by drawing various game 
+-  My bot will not win every possible game of SimpleNim because as we discussed in class, we learned and proved by drawing various game 
 trees that the player who goes first will win SimpleNim and if we cannot guarantee that the bot gets to play first, we cannot guarantee a win. 
 Also, there are examples of SimpleNim where the bot simply will not win if the other player makes the best move (even if the bot goes first)
 An example of this is if our bot got to go first and we started with 5 chips on the table- no matter if the bot takes 1,2, or 3 there is no 
 winning move because we know that the other player can take 3 if our bot took one, 2 if our bot took 2, and 1 if our bot took 3 and our bot 
-will lose. FINISH
+will lose. For complicated nim, my bot is far more likely to win for a few reasons: 1) The user input aspect- humans make mistakes all the time 
+and the input is likely to not be the actual next best move 2) Our best move function is far better at making decisions about how many chips to 
+take and from what pile because fo the logic we coded in our recursively called minimax. 
 
 3) Nim is known as a misere game, meaning that the goal is to avoid taking the last piece. Say we changed the rules
 so that the player who takes the last piece wins instead of loses. How would you change your code to give the best move
 for the AntiNim game? Be as specific as possible, citing file names and line numbers.
-    If we changed the rules so that the player who takes the last piece won, my code would almost flip- my minimax function would return 1 
+- If we changed the rules so that the player who takes the last piece won, my code would almost flip- my minimax function would return 1 
 when ..... FINISH Change the base case to the opposite and change minimax to make it return the opposite in minimax- and we don't need to change 
 anything in bestmove 
 
 4) Give one example of a non-Nim game you expect your algorithm would NOT work well on. Explain why.
-    I expect that my algorithm would not work well on a game of tic tac toe because although there are strategies you can employ to optimize 
+- I expect that my algorithm would not work well on a game of tic tac toe because although there are strategies you can employ to optimize 
 your situation in a given state, it is not a zero-sum game so ties can occur. Also, there should be no scenario in which a rational player
 will lose tic tac toe if they have basic experience with the game (and we asssume that players can make rational best possible decisions for
 themselves) The two player and alternatation moves aspects of this game suggests that it could work in our algorithm but ultimately with so
-many possible outcomes being a tie it is not a good game to use my algorithm on. CONTINUE EXPLANATION
+many possible outcomes being a tie it is not a good game to use my algorithm on. It is also not a good fit for my algorithm because while there
+are optimal moves for a given situation/state in the game, a lot of the time there is an equally "best decision" to make and although we don't 
+account for degrees of how good a decision is in my simple nim and real nim (we just select the first best decision) if I were to expand the 
+game to account for this, there would be an issue because of the fact that there are equally good choices- this also relates to the fact that 
+it is not a zero-sum game.
