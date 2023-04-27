@@ -3,7 +3,7 @@ Here is my reflection for my minimax project:
 1) What are some time or space efficiency limitations of your current algorithm? 
 For example, is there a certain number of initial pieces for which your algorithm will not be able to finish 
 executing in a reasonable amount of time?
-
+The larger the input the larger amount of branching and because we are iteratively calling minimax 
 
 
 2) Will your bot win EVERY possible game of SimpleNim? Explain why.
