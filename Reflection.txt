@@ -26,9 +26,9 @@ take and from what pile because fo the logic we coded in our recursively called 
 3) Nim is known as a misere game, meaning that the goal is to avoid taking the last piece. Say we changed the rules
 so that the player who takes the last piece wins instead of loses. How would you change your code to give the best move
 for the AntiNim game? Be as specific as possible, citing file names and line numbers.
-- If we changed the rules so that the player who takes the last piece won, my code would almost flip- my minimax function would return 1 
-when ..... FINISH Change the base case to the opposite and change minimax to make it return the opposite in minimax- and we don't need to change 
-anything in bestmove 
+- If we changed the rules so that the player who takes the last piece won, my code would flip- my minimax function would return 1 
+when myTurn=false instead of true (line 61) and -1 when mTurn was true- this was the main priorit to change because this is The
+base case that determines who wins and loses- then we would change minimax to make it return the opposite in minimax.
 
 4) Give one example of a non-Nim game you expect your algorithm would NOT work well on. Explain why.
 - I expect that my algorithm would not work well on a game of tic tac toe because although there are strategies you can employ to optimize 
