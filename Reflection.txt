@@ -27,8 +27,13 @@ take and from what pile because fo the logic we coded in our recursively called 
 so that the player who takes the last piece wins instead of loses. How would you change your code to give the best move
 for the AntiNim game? Be as specific as possible, citing file names and line numbers.
 - If we changed the rules so that the player who takes the last piece won, my code would flip- my minimax function would return 1 
-when myTurn=false instead of true (line 61) and -1 when mTurn was true- this was the main priorit to change because this is The
-base case that determines who wins and loses- then we would change minimax to make it return the opposite in minimax.
+when myTurn=false instead of true (line 61 in simple nim) and -1 when myTurn was true. this was the main priority to change because 
+this is the base case that determines who wins and loses- then we would change the other returns in minimax to return the opposite- we 
+would be basically flipping what we quantify as a good decision- instead we would consider a good decision for player x to be one that puts
+them in a position to take the last piece- this why we changed our base case to be that if there are zero chips left and it is player x's
+turn this is bas because it means that player y took the last piece (which is optimal for player y). Basically the return values on lines 
+38,43,62,65,73,78, 84, and 87 would switch from their value to the negative of that value (so 1 would be -1 and -1 would be one)(these are the line
+numbers for simplenim but the same thing applies for regular nim)
 
 4) Give one example of a non-Nim game you expect your algorithm would NOT work well on. Explain why.
 - I expect that my algorithm would not work well on a game of tic tac toe because although there are strategies you can employ to optimize 
