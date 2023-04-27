@@ -80,21 +80,23 @@ public class RealNim{
   }
 
     public static ArrayList<Integer> bestMove(ArrayList<Integer> piles,boolean myTurn) {
-        ArrayList<Integer> copyPiles = new ArrayList<Integer>(piles);
         for (int i = 0; i < piles.size(); i++) {
             // if (piles.get(i) == 0) { //if there are no chips
             //     continue;//edge case
             // }
             for (int j = 1; j <= piles.get(i); j++) { //num pieces im taking 
+                ArrayList<Integer> copyPiles = new ArrayList<Integer>(piles);
                 ArrayList<Integer> state = new ArrayList<Integer>(piles);
                 state.set(i, piles.get(i) - j);//replacing current pile with value - piecesTaken
                 if (myTurn) {
                     if (minimax(state, !myTurn) == 1) {
-                        return state;
+                        copyPiles.set(i,(Integer)copyPiles.get(i)-state.get(i));
+                        return copyPiles;
                     }
                 } else {
                     if (minimax(state, !myTurn) == -1) {
-                        return state;
+                        copyPiles.set(i,(Integer)copyPiles.get(i)-state.get(i));
+                        return copyPiles;
                     }
                 }
             }
@@ -145,7 +147,6 @@ public class RealNim{
                     }
                 }
             }
-
             if (myTurn) {
                 return -1;
             }
