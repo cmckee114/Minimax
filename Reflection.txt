@@ -5,6 +5,7 @@ For example, is there a certain number of initial pieces for which your algorith
 executing in a reasonable amount of time?
 
 
+
 2) Will your bot win EVERY possible game of SimpleNim? Explain why.
     My bot will not win every possible game of SimpleNim because as we discussed in class, we learned and proved by drawing various game 
 trees that the player who goes first will win SimpleNim and if we cannot guarantee that the bot gets to play first, we cannot guarantee a win. 
@@ -17,7 +18,8 @@ will lose. FINISH
 so that the player who takes the last piece wins instead of loses. How would you change your code to give the best move
 for the AntiNim game? Be as specific as possible, citing file names and line numbers.
     If we changed the rules so that the player who takes the last piece won, my code would almost flip- my minimax function would return 1 
-when ..... FINISH
+when ..... FINISH Change the base case to the opposite and change minimax to make it return the opposite in minimax- and we don't need to change 
+anything in bestmove 
 
 4) Give one example of a non-Nim game you expect your algorithm would NOT work well on. Explain why.
     I expect that my algorithm would not work well on a game of tic tac toe because although there are strategies you can employ to optimize 

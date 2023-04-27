@@ -1,126 +1,153 @@
+import java.util.*;
 public class RealNim{
-    public static int pieces;
-    public static void main (String[] args){
-       // display(7, true);
-    }
-    public static void runGame(int pile1Size, int pile2Size, int pile3Size){ //accepting pile sizes and will make this into a state 
-    //     set up an empty arraylist of arraylists of ints (moves)
-    ArrayList<ArrayList<Integer>> moves = new ArrayList<ArrayList<Integer>>();
-    ArrayList<Integer> state = new ArrayList<Integer>();
-    state.add(pile1Size);
-    state.add(pile2Size);
-    state.add(pile3Size);//how do i adjjust for less than three piles?
+    public static boolean runGame() {
+        System.out.println("This is the start of the Real Nim Game");
+        boolean myTurn = true;
+        ArrayList<Integer> baseCase = new ArrayList<>();//creating asrraylist for my base case
+        ArrayList<Integer> piles = new ArrayList<>(generateRandomPiles()); //tol get starting # of piles and starting # chips in each pile 
+        System.out.println(piles);
 
-    //     for loop through state (which represents each pile) state is current number of piles and chips in each pile (ex. 3,5,7 or 1,2,3)
-    for (pile:state){
-        for (int piecesToTake = 1; piecesToTake<=3;piecesToTake++){
-            if (piecesToTake<pile){
-                ArrayList<Integer> oneMove = new ArrayList<Integer>();
+        for (int i = 0; i < piles.size(); i++) {
+        baseCase.add(0); //adding zero to each pile for the base case depending on how many piles are on the table 
+        }
+
+        while (!piles.equals(baseCase)) { //as long as we are not at base case 
+            if (myTurn) {
+             piles = getUserMove(piles);//if its my turn i get to input pile number and pieces i want to take
+            } else {
+            piles = getYMove(piles); //computer move
             }
-            
+            display(piles, myTurn);//showing the current situation
+            myTurn = !(myTurn); //changing turns
+            System.out.println();
+        }
+
+        if (myTurn) {//if its my turn and we've reached base case i lost
+            System.out.println("You won, the computer lost");
+            return true;
+        } else {
+            System.out.println("The computer won, you lost");
+            return false;
         }
     }
-    //     for loop or while loop through number f possible pieces you can take from this particular pile (specified index) outer loop tells pile and inner loop tells chips 4)make a new arraylist of integers to represent 1 move possibility (should have same number of indexes as state) 5)at the index you are at in state (pile index) : add the # of pieces
-    //     add the one move to moves (add small arraylist to arraylist of arraylists of ints) this is getPossibleMoves()
+    
+    public static ArrayList<Integer> generateRandomPiles() { //generating a random number of piles and chips to play nim
+         ArrayList<Integer> table = new ArrayList<>();
+            for (int i = 0; i < (int) (Math.random() * 10) + 1; i++) {   //random number of piles min 1 max 10
+                table.add((int) (Math.random() * 10)+1); //random number of chips in each pile min 1 max 10
+            }
+        return table;
     }
-    public static int getXMove(int pieces){
-       return bestMove(pieces, true);
-    }
-    public static int getYMove(int pieces){
-       return bestMove(pieces, false);
-    }
-    //public static int getUserMove(){
-        //use scanner 
-    //}
+    public static void display(ArrayList<Integer> numPieces, boolean myTurn) {
+        if (myTurn) {
+         System.out.println("User's turn");
+        } else {
+          System.out.println("Computer's turn");
+        }
+        System.out.println();
+        System.out.print("Here are the current piles: ");
+        for (int i = 0; i < numPieces.size(); i++) {
+          System.out.print(" " + numPieces.get(i) + " ");
+        }
+        System.out.println();
+     }
 
-    public static int bestMove(int pieces, boolean myTurn){//returning the number of pieces we wanna take (for complicagted nim probs returns an arraylist )
-        for (int piecesTaken=1; piecesTaken<3; piecesTaken++){ //specific for simple nim because we need more thna just integer being passed in we also need pile number (array index) and not limited to taking three
-            //for move: moves 
-            if (piecesTaken>pieces){
+    public static ArrayList<Integer> getYMove(ArrayList<Integer> piles) { //arraylist
+        return bestMove(piles, false);
+    }
+
+    public static ArrayList<Integer> getUserMove(ArrayList<Integer> piles) { //tried making it as robust as possible, pls assume valid input
+        int pileNum = 0;
+        int piecesTaken = 0;
+        ArrayList<Integer> possibleState = new ArrayList<>(piles);
+        boolean validMove = false;
+        while (!validMove) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Which pile do you want to pick from (starting at pile 0): ");
+            pileNum = sc.nextInt();
+            System.out.println("How many pieces will you take from that pile: ");
+            piecesTaken = sc.nextInt();
+            if ((pileNum >= 0) && (pileNum < piles.size())) {
+                if ((piles.get(pileNum) - piecesTaken) >= 0) {
+                    if (piecesTaken != 0) {
+                      validMove = true;
+                    }
+                }
+            }
+        }
+        possibleState.set(pileNum, piles.get(pileNum) - piecesTaken);
+        return possibleState;
+  }
+
+    public static ArrayList<Integer> bestMove(ArrayList<Integer> piles,boolean myTurn) {
+        for (int i = 0; i < piles.size(); i++) {
+            if (piles.get(i) == 0) { //if there are no piles (base case)
                 continue;
             }
-            else{
-                if (myTurn){
-                    if(minimax(pieces, myTurn)>0){
-                        return piecesTaken;
+            for (int j = 1; j <= piles.get(i); j++) { //num pieces remaining in pile 
+                ArrayList<Integer> state = new ArrayList<Integer>(piles);
+                state.set(i, piles.get(i) - j);//replacing current pile with value - piecesTaken
+                if (myTurn) {
+                    if (minimax(state, !myTurn) == 1) {
+                        return state;
+                    }
+                } else {
+                    if (minimax(state, !myTurn) == -1) {
+                        return state;
                     }
                 }
-                else{
-                    if (minimax(pieces, myTurn)<0){
-                        return piecesTaken;
-                    }
-                }
             }
         }
-        return 1;// if you get ot this point there is no winning strategy (you will lose) and so we're just deciding to trake 3
-    }
+        ArrayList<Integer> state = new ArrayList<Integer>(piles);
+        int count = 0;
+        for (int i = 0; i < piles.size(); i++) {
+            if (piles.get(i) > 0) {
+                count = i;
+                break;
+            }
+        }
+        state.set(count, piles.get(count) - 1);
+        return state;
+  }
 
-    public static void display(int pieces, boolean turn){ //shows a line of asterisks for the number of chips on the table 
-        for (int i=0; i<pieces; i++){
-            System.out.print("*");
+    public static int minimax(ArrayList<Integer> piles, boolean myTurn) {
+        ArrayList<Integer> baseCase = new ArrayList<>();
+        for (int i = 0; i < piles.size(); i++) {
+            baseCase.add(0); //same thing creating base case 
         }
-        System.out.println(" ");
-    }
-
-    public static int minimax(int state, boolean myTurn){ //state=numPieces 
-       //checking if each pile is zero for nim
-        if (state==0){//base case no more pieces 
-            if (myTurn==false){
-                return -1;//i lost
+        if (piles.equals(baseCase)) { //check if all of the piles contain 0 chips 
+            if (myTurn) {
+                return 1; //i won
+            } 
+            else {
+                return -1;//i lost 
             }
-            else{
-                return 1;//i won
-            }
-        }
-        else{
-            for (int piecesToTake = 1; piecesToTake<=3;piecesToTake++){ //determining each of the possible next states of the game (number of chips taken)
-                if (piecesToTake<=state){//making sure it is a valid move
-                    if (myTurn){//if its my turn i wanbt to return the max 
-                        if(minimax(state-piecesToTake, !myTurn)>0){ //return 1 if there is a winning combo when it is my turn
+        } 
+        else {
+            for (int p = 0; p < piles.size(); p++) { //iterating through pile
+                for (int n = 0; n <= piles.get(n) - 1; n++) { //iterating through number in each pile
+                    ArrayList<Integer> state = new ArrayList<Integer>(piles);
+                    state.set(p, n);
+                    if (myTurn) {
+                        if (minimax(state, !myTurn) == 1) {
                             return 1;
-                            }
+                        }
                     }
-                    else{
-                        if(minimax(state-piecesToTake, !myTurn)<0){
+                    else {
+                        if (minimax(state, !myTurn) == -1) {
                             return -1;
                         }
                     }
                 }
-
             }
-            if (myTurn){
+
+            if (myTurn) {
                 return -1;
             }
-            else{
+            else {
                 return 1;
             }
         }
-    }
+  }
+
 }
-
-
-// ArrayList<Integer> states = new ArrayList<>();
-//         states.add(1);
-//         states.add(1);
-
-//         int totalObjects = 0;
-//         for(int i=0; i<states.size(); i++){
-//             totalObjects = totalObjects +states.get(i);
-//         }
-
-//         int state=2;
-//         while(state>=1){
-//             if(isXTurn){
-//                 state= getXMove(state);
-//                 System.out.println("New state:" + state);
-//             }
-//             else{
-//                 state = getYMove(state);
-//                 System.out.println("During y move, state after y moves:" + state);
-//             }
-//             isXTurn = !isXTurn;
-//         }
-//         if (state==0 && isXTurn){
-//             return true;
-//         }
-//         return false;
