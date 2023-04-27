@@ -1,3 +1,4 @@
+import java.util.*;
 public class Tests{
 
     public static void main(String[] args){
@@ -25,8 +26,14 @@ public class Tests{
         System.out.println("Testing minimax should return true");
         System.out.println(NimRunner.minimax(1, false)==1);
 
-        //ok so there's a problem with bestMove 
-
+        System.out.println("Testing real nim:");
+        ArrayList<Integer> piles = new ArrayList<>();
+        piles.add(8);
+        piles.add(0);
+        System.out.println(RealNim.bestMove(piles, false)); //stack overflow error 
+        
+        
+        //System.out.println(RealNim.runGame()); THIS WORKS
     }
 
 }
