@@ -26,14 +26,29 @@ public class Tests{
         System.out.println("Testing minimax should return true");
         System.out.println(NimRunner.minimax(1, false)==1);
 
+        System.out.println("Testing simpleNim with 20");
+        System.out.println(NimRunner.runGame(10));
+
         System.out.println("Testing real nim:");
-        ArrayList<Integer> piles = new ArrayList<>();
-        piles.add(8);
-        piles.add(0);
-        System.out.println(RealNim.bestMove(piles, false)); //stack overflow error 
+        ArrayList<Integer> zTest1 = new ArrayList<>();
+        zTest1.add(1);
+        zTest1.add(3);
+        zTest1.add(5);
+        zTest1.add(7);
+        System.out.println(RealNim.minimax(zTest1, true));//this should return -1
+
+        // ArrayList<Integer> zTest1 = new ArrayList<>();
+        // zTest2.add(3);
+        // zTest2.add(5);
+        // zTest2.add(7);
+        // System.out.println(RealNim.minimax(zTest2, true));//this should return 1
+
+        //  ArrayList<Integer> piles = new ArrayList<>();
+        //  piles.add(3);
+        //  System.out.println(RealNim.bestMove(piles, false)); //stack overflow error 
         
         
-        //System.out.println(RealNim.runGame()); THIS WORKS
+        //System.out.println(RealNim.runGame()); 
     }
 
 }
